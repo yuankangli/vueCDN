@@ -1,0 +1,24 @@
+[v-cloak] {
+    display: none;
+}
+.app-container {
+    padding: 20px 20px 0 20px;
+
+}
+.pagination-container {
+    background: #fff;
+    padding: 32px 16px;
+}
+.filter-container {
+    padding-bottom: 10px;
+}
+.el-button{
+    margin-left: 0 !important;
+    margin-right: 10px !important;
+}
+/*.el-form-item__label{
+    width: 120px;
+}*/
+.el-form-item__content .el-input--suffix,.el-form-item__content .el-range-editor{
+    width: 240px !important;
+}
