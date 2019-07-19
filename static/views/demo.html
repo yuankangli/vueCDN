@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <title>示例Demo</title>
+    <title>单表示例Demo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="../plugins/elementui/2.10.1/index.min.css" type="text/css">
     <link rel="stylesheet" href="../css/vueCommon.css" type="text/css">
-
 </head>
 <body>
 <div id="app" class="app-container"  v-loading.lock="loading.body"  v-cloak>
@@ -64,6 +63,7 @@
     <div class="dialog" v-cloak>
         <el-dialog title="新增" :visible.sync="loading.insert" size="mini" width="660px">
             <el-form :model="insertData">
+<!--                 TODO 以下是示例, 待修改-->
                 <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                     <el-form-item label="活动名称" prop="name">
                         <el-input v-model="ruleForm.name"></el-input>
