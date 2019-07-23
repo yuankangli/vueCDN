@@ -322,7 +322,8 @@
                 let self = this;
                 // 新增操作
                 let keyValue = self.editData[self.keyField];
-                let localData = self.tableData;
+                let localData = localStorage.getItem(self.localStorageName);
+                localData = JSON.parse(localData);
                 localData.forEach((current, index, arrs) => {
                    if (current[self.keyField] === keyValue) {
                        Object.assign(current, self.editData); // 原对象也会改变
