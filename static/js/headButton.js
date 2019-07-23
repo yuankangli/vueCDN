@@ -212,8 +212,9 @@ function getFiledList(field) {
 
 function appendQuery(normal, queryParameter) {
     for (var obj in queryParameter) {
-
-        normal[obj] = queryParameter[obj];
+        if (queryParameter[obj]) {
+            normal[obj] = queryParameter[obj];
+        }
     }
     return normal;
 }

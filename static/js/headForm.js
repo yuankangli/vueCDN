@@ -11,27 +11,32 @@ define(['./headForm.js'], function () {
     <el-date-picker v-else-if="item.type==='year'" :prop="item.field"
         v-model="queryDataTemp[item.field]"
         type="year"
+        value-format="yyyy"
         placeholder="选择年">
     </el-date-picker>
     <el-date-picker v-else-if="item.type==='month'" :prop="item.field"
         v-model="queryDataTemp[item.field]"
         type="month"
+        value-format="yyyy-MM"
         placeholder="选择年月">
     </el-date-picker>
     <el-date-picker v-else-if="item.type==='week'" :prop="item.field"
         v-model="queryDataTemp[item.field]"
         type="week"
         format="yyyy 第 WW 周"
+         value-format="yyyy-WW"
         placeholder="选择周次">
     </el-date-picker>
     <el-date-picker v-else-if="item.type==='date'" :prop="item.field"
         v-model="queryDataTemp[item.field]"
         type="date"
+        value-format="yyyy-MM-dd"
         placeholder="选择日期">
     </el-date-picker>
     <el-date-picker v-else-if="item.type==='dateRange'" :prop="item.field"
         v-model="queryDataTemp[item.field]"
         type="daterange"
+        
         range-separator="至"
         start-placeholder="开始日期"
         end-placeholder="结束日期">
@@ -39,6 +44,7 @@ define(['./headForm.js'], function () {
     <el-date-picker v-else-if="item.type==='dateTime'" :prop="item.field"
         v-model="queryDataTemp[item.field]"
         type="datetime"
+        value-format="yyyy-MM-dd HH:mm:ss"
         placeholder="选择日期时间">
     </el-date-picker>
     <el-select v-else-if="item.type==='select'" filterable clearable :prop="item.field"

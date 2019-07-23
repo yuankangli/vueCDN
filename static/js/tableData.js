@@ -63,7 +63,7 @@ define(['./tableData.js'], function () {
                 for(let index in columnConfig) {
                     let field = columnConfig[index].field;
                     let value = columnConfig[index].type || "text";
-                    if (value === "year") {
+/*                    if (value === "year") {
                         result[field] = "yyyy";
                     }
                     if (value === "month") {
@@ -71,7 +71,7 @@ define(['./tableData.js'], function () {
                     }
                     if (value === "date") {
                         result[field] = "yyyy-MM-dd";
-                    }
+                    }*/
                     if (value === "datetime") {
                         result[field] = "yyyy-MM-dd hh:mm:ss";
                     }
