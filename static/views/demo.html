@@ -8,25 +8,25 @@
     <link rel="stylesheet" href="../css/vueCommon.css" type="text/css">
 </head>
 <body>
-<div id="app" class="app-container"  v-loading.lock="loading.body"  v-cloak>
-    <template  v-cloak>
-        <el-form :inline="true" class="demo-form-inline filter-container" size="mini" label-width="100px"
+<div id="app" class="app-container" v-loading.lock="loading.body" v-cloak>
+    <template v-cloak>
+        <el-form :inline="true" class="demo-form-inline filter-container head-form" size="mini" label-width="100px"
                  ref="query_form" :rules="rules_query" :model="queryData">
             <keepercloud-head-form :column_config.sync="columnConfig" :item.sync="item" :query_data.sync="queryData"
-                              v-for="(item,index) in columnConfig" :key="item.field"></keepercloud-head-form>
+                                   v-for="(item,index) in columnConfig" :key="item.field"></keepercloud-head-form>
             <br>
             <!--            传入查询条件[queryData] 和 分页条件[tableConfig]（默认条件请查询对应js）-->
             <keepercloud-head-button ref="query_button" :query_data.sync="queryData" :loading.sync="loading"
-                                :key_field.sync="keyField"
-                                :url_config.sync="urlConfig"
-                                :table_config.sync="tableConfig"
-                                :column_config.sync="columnConfig"
-                                :local_storage_name.sync="localStorageName"
-                                :table_data.sync="tableData">
+                                     :key_field.sync="keyField"
+                                     :url_config.sync="urlConfig"
+                                     :table_config.sync="tableConfig"
+                                     :column_config.sync="columnConfig"
+                                     :local_storage_name.sync="localStorageName"
+                                     :table_data.sync="tableData">
             </keepercloud-head-button>
-<!--            <el-button class="filter-item" type="primary" icon="el-icon-document-add" size="mini" @click="testBtn">
-                添加自定义按钮
-            </el-button>-->
+            <!--            <el-button class="filter-item" type="primary" icon="el-icon-document-add" size="mini" @click="testBtn">
+                            添加自定义按钮
+                        </el-button>-->
         </el-form>
     </template>
     <div>
@@ -38,7 +38,7 @@
                   :border="false"
                   style="width: 100%">
             <keepercloud-table-data :column_config.sync="columnConfig"></keepercloud-table-data>
-            <el-table-column label="操作" fixed="right">
+            <el-table-column label="操作" fixed="right" min-width="100px">
 
                 <template slot-scope="scope">
                     <el-button
@@ -54,77 +54,38 @@
         </el-table>
 
         <keepercloud-table-pagination :query_data.sync="queryData"
-                                 :table_config.sync="tableConfig"
-                                 :table_data.sync="tableData"
-                                 @query="queryBtn()">
+                                      :table_config.sync="tableConfig"
+                                      :table_data.sync="tableData"
+                                      @query="queryBtn()">
         </keepercloud-table-pagination>
     </div>
 
     <div class="dialog" v-cloak>
         <el-dialog title="新增" :visible.sync="loading.insert" size="mini" width="660px">
             <el-form :model="insertData">
-<!--                 TODO 以下是示例, 待修改-->
-                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-                    <el-form-item label="活动名称" prop="name">
-                        <el-input v-model="ruleForm.name"></el-input>
-                    </el-form-item>
-                    <el-form-item label="活动区域" prop="region">
-                        <el-select v-model="ruleForm.region" placeholder="请选择活动区域">
-                            <el-option label="区域一" value="shanghai"></el-option>
-                            <el-option label="区域二" value="beijing"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="活动时间" required>
-                        <el-col :span="11">
-                            <el-form-item prop="date1">
-                                <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker>
-                            </el-form-item>
-                        </el-col>
-                        <el-col class="line" :span="2">-</el-col>
-                        <el-col :span="11">
-                            <el-form-item prop="date2">
-                                <el-time-picker placeholder="选择时间" v-model="ruleForm.date2" style="width: 100%;"></el-time-picker>
-                            </el-form-item>
-                        </el-col>
-                    </el-form-item>
-                    <el-form-item label="即时配送" prop="delivery">
-                        <el-switch v-model="ruleForm.delivery"></el-switch>
-                    </el-form-item>
-                    <el-form-item label="活动性质" prop="type">
-                        <el-checkbox-group v-model="ruleForm.type">
-                            <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-                            <el-checkbox label="地推活动" name="type"></el-checkbox>
-                            <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-                            <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-                        </el-checkbox-group>
-                    </el-form-item>
-                    <el-form-item label="特殊资源" prop="resource">
-                        <el-radio-group v-model="ruleForm.resource">
-                            <el-radio label="线上品牌商赞助"></el-radio>
-                            <el-radio label="线下场地免费"></el-radio>
-                        </el-radio-group>
-                    </el-form-item>
-                    <el-form-item label="活动形式" prop="desc">
-                        <el-input type="textarea" v-model="ruleForm.desc"></el-input>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
-                        <el-button @click="resetForm('ruleForm')">重置</el-button>
-                    </el-form-item>
+                <el-form :model="insertData" :rules="rules_insert" ref="form_insert" label-width="120px"
+                         class="insertForm">
+                    <keepercloud-form-data :column_config.sync="columnConfig" :item.sync="item" :show.sync="item.show.insert"
+                                             :form_data.sync="insertData"
+                                             v-for="(item,index) in columnConfig"
+                                             :key="item.field"></keepercloud-form-data>
                 </el-form>
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="loading.insert = false">取 消</el-button>
-                <el-button type="primary" @click="!loading.insert">确 定</el-button>
+                <el-button type="primary" @click="insertStep()">确 定</el-button>
             </div>
         </el-dialog>
-        <el-dialog title="修改" :visible.sync="loading.edit">
-            <el-form :model="editData">
-
+        <el-dialog title="修改" :visible.sync="loading.edit" size="mini" width="660px">
+            <el-form :model="editData" :rules="rules_edit" ref="form_edit" label-width="120px" class="insertForm">
+                <keepercloud-form-data :column_config.sync="columnConfig" :item.sync="item" :form_data.sync="editData"
+                                       :show.sync="item.show.edit"
+                                         v-for="(item,index) in columnConfig"
+                                         :key="item.field"></keepercloud-form-data>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="loading.insert = false">取 消</el-button>
-                <el-button type="primary" @click="loading.insert= false">确 定</el-button>
+                <el-button @click="resetForm('form_edit'); loading.edit = false">取 消</el-button>
+                <el-button type="primary" @click="editStep()">确 定</el-button>
             </div>
         </el-dialog>
     </div>
@@ -155,61 +116,36 @@
             'keepercloud-table-pagination': function (resolve) {
                 // 用于展示表格分页工具栏
                 require(['../js/tablePagination.js'], resolve);
+            },
+            'keepercloud-form-data': function (resolve) {
+                // 用于展示表格分页工具栏
+                require(['../js/formData.js'], resolve);
             }
         },
         data() {
             return {
-                ruleForm: {
-                    name: '',
-                    region: '',
-                    date1: '',
-                    date2: '',
-                    delivery: false,
-                    type: [],
-                    resource: '',
-                    desc: ''
+                numberValidateForm: {
+                    age: ''
                 },
-                rules: {
-                    name: [
-                        { required: true, message: '请输入活动名称', trigger: 'blur' },
-                        { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-                    ],
-                    region: [
-                        { required: true, message: '请选择活动区域', trigger: 'change' }
-                    ],
-                    date1: [
-                        { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
-                    ],
-                    date2: [
-                        { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
-                    ],
-                    type: [
-                        { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
-                    ],
-                    resource: [
-                        { required: true, message: '请选择活动资源', trigger: 'change' }
-                    ],
-                    desc: [
-                        { required: true, message: '请填写活动形式', trigger: 'blur' }
-                    ]
-                },
-                loading:{
+                loading: {
                     body: true,
                     table: false,
                     insert: false,
                     edit: false,
                 },
-                tableConfig: {}, // 分页条件, 所有初始化均在 headButton.js 和 tablePagination.js 完成
+                tableConfig: {}, // 分页条件, 所有初始化均在 headButton.js 和 tablePagination.js 完成, 也可手动修改默认值
                 urlConfig: { // 配置查询,新增,修改,删除,批量删除,导出的 url 路径,不填则localStorageName生效
                     // query: "/tAdmissionScoreController/vueDataList",
                     // delete: "/tAdmissionScoreController?doBatchDel"
                 },
-                localStorageName: "testData",// 可以在 created 中初始化该变量, 读取资料从 localStorage 中读取
+                localStorageName: "testData",// 可以在 created 中初始化该变量, 读取资料从 localStorage 中读取, 当url为空时生效
                 keyField: "id", //主键, 通常用于删除
                 queryData: { // 查询条件, 如果里面有内容, 则进行默认值设置
                     // "sex": 1,// 设置查询时的默认值
                 },
-                insertData: {}, // 插入内容, 同查询条件, 如果里面有内容, 则进行默认值设置
+                insertData: { // 插入内容, 同查询条件, 如果里面有内容, 则进行默认值设置
+                    // birthday:"2018-01",
+                },
                 editData: {}, // 编辑内容, 同查询条件, 不推荐设置默认值
                 tableData: [], // 放 table 资料的容器
                 columnConfig: [ // 配置页面显示的内容
@@ -219,7 +155,7 @@
                         type: "text", //字段类型text,select,date(year, month, week),time,datetime,dateRange,timeRange
                         show: {
                             query: false, // 是否在查询条件展示, 以下都是默认 false 不展示
-                            table: true, // 是否在表格中展示, 以下都是默认 false 不展示
+                            table: false, // 是否在表格中展示, 以下都是默认 false 不展示
                             insert: false, // 是否在新增页面展示, 以下都是默认 false 不展示
                             edit: false // 是否在修改页面展示, 以下都是默认 false 不展示
                         },
@@ -231,8 +167,8 @@
                         show: {
                             query: true,
                             table: true,
-                            insert: false,
-                            edit: false
+                            insert: true,
+                            edit: true
                         },
                     }, {
                         title: "性别",
@@ -241,8 +177,8 @@
                         show: {
                             query: true,
                             table: true,
-                            insert: false,
-                            edit: false
+                            insert: true,
+                            edit: true
                         },
                         options: [ //下拉框显示, 将会同步更新表格内的显示
                             {
@@ -260,8 +196,8 @@
                         show: {
                             query: true,
                             table: true,
-                            insert: false,
-                            edit: false
+                            insert: true,
+                            edit: true
                         },
                         queryMode: "group", //只有以下几个选项可以在查询时变更为时间范围: date, month, datetime
                     }, {
@@ -271,50 +207,64 @@
                         show: {
                             query: true,
                             table: true,
-                            insert: false,
-                            edit: false
+                            insert: true,
+                            edit: true
                         },
-                        options:[], // 这个必填, 不然资料加载不出来
+                        options: [], // 这个必填, 不然资料加载不出来
                         optionUrl: "/getProvince",
                     }, {
                         title: "创建人登录名称",
                         field: "createBy",
                         type: "text",
+                        show: {
+                            table: true,
+                        },
                     }, {
                         title: "创建人名称",
                         field: "createName",
                         type: "text",
+                        show: {
+                            table: true,
+                        },
                     }, {
                         title: "创建时间",
                         field: "createTime",
-                        type: "text",
+                        type: "datetime",
+                        show: {
+                            table: true,
+                        },
                     }, {
                         title: "修改人登录名称",
                         field: "updateBy",
                         type: "text",
+                        show: {
+                            table: true,
+                        },
                     }, {
                         title: "修改人名称",
                         field: "updateName",
                         type: "text",
+                        show: {
+                            table: true,
+                        },
                     }, {
                         title: "修改时间",
                         field: "updateTime",
-                        type: "text",
+                        type: "datetime",
+                        show: {
+                            table: true,
+                        },
                     },
                 ],
                 // 校验规则: 分别对应了3个表单: 查询表单(rules_query)/新增页面表单(rules_insert)/修改页面表单(rules_edit)
                 rules_query: {
                     name: [
-                        { required: false, message: '请输入姓名', trigger: 'blur' },
-                        { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'change' }
+                        {required: false, message: '请输入姓名', trigger: 'blur'},
+                        {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'change'}
                     ],
                 },
-                rules_insert: {
-
-                },
-                rules_edit: {
-
-                }
+                rules_insert: {},
+                rules_edit: {}
             }
         },
         methods: {
@@ -322,29 +272,79 @@
                 this.$refs.query_button.query()
             },
             handleEdit(index, row) {
-                console.log(index, row);
+                this.editData = JSON.parse(JSON.stringify(row));
+                this.loading.edit = true;
             },
             handleDelete(index, row) {
                 this.$refs.query_button.deleteData(row[this.keyField]);
                 console.log(index, row);
             },
-            testBtn(){
+            testBtn() {
 
             },
             clickRow(row, column, event) {
+                // 单击行时, 反选当前行
                 if (column.label !== "操作") {
                     this.$refs.multipleTable.toggleRowSelection(row);
                 }
                 console.log(row, column, event);
+            },
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        alert('submit!');
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            },
+            insertStep (){
+                let self = this;
+                // 新增操作
+                let localData = localStorage.getItem(self.localStorageName);
+                localData = JSON.parse(localData) || [];
+                let insertData = this.insertData;
+                insertData[self.keyField] = UUID();
+                insertData.createBy = "tester";
+                insertData.createName = "测试员";
+                insertData.createTime = new Date();
+                localData.push(insertData);
+                localStorage.setItem(self.localStorageName, JSON.stringify(localData));
+                self.queryBtn();
+                showTip(self, '', '新增成功', "success");
+                self.loading.insert = false;
+            },
+            editStep () {
+                let self = this;
+                // 新增操作
+                let keyValue = self.editData[self.keyField];
+                let localData = self.tableData;
+                localData.forEach((current, index, arrs) => {
+                   if (current[self.keyField] === keyValue) {
+                       Object.assign(current, self.editData); // 原对象也会改变
+                       current.updateBy = "tester2";
+                       current.updateName = "测试员2";
+                       current.updateTime = new Date();
+                   }
+                });
+                localStorage.setItem(self.localStorageName, JSON.stringify(localData));
+                self.queryBtn();
+                showTip(self, '', '修改成功', "success");
+                self.loading.edit = false;
             }
         },
         created: function () {
+            // 如果需要使用本地数据, 请在此处设置默认值, 否则放空
             setDefaultValue(this, this.columnConfig, this.loading);
             let item = localStorage.getItem(this.localStorageName);
             item = JSON.parse(item);
             if (isEmpty(item)) {
                 item = [];
-                for (let i=0; i<13; i++) {
+                for (let i = 0; i < 13; i++) {
                     item.push({
                         id: UUID(),
                         name: "张三",

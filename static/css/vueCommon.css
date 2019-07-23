@@ -19,6 +19,6 @@
 /*.el-form-item__label{
     width: 120px;
 }*/
-.el-form-item__content .el-input--suffix,.el-form-item__content .el-range-editor{
+.head-form .el-input--suffix,.head-form .el-range-editor{
     width: 240px !important;
 }

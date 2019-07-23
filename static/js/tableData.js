@@ -29,6 +29,13 @@ define(['./tableData.js'], function () {
                             }
                         }
                     }
+                    let dates = self.dates;
+                    if (dates.hasOwnProperty(property)) {
+                        let formatStr = dates[property]; //数组
+                        if (cellValue) {
+                            return dateFormat(formatStr, new Date(cellValue));
+                        }
+                    }
                     return cellValue;
 
                 }
@@ -44,6 +51,29 @@ define(['./tableData.js'], function () {
                     let value = columnConfig[index];
                     if (value.options) {
                         result[value.field] = value.options;
+                    }
+                }
+                return result;
+            },
+            // 时间格式化
+            // date(year, month, week),time,datetime,dateRange,timeRange
+            dates: function () {
+                let result = {};
+                let columnConfig = this.column_config;
+                for(let index in columnConfig) {
+                    let field = columnConfig[index].field;
+                    let value = columnConfig[index].type || "text";
+                    if (value === "year") {
+                        result[field] = "yyyy";
+                    }
+                    if (value === "month") {
+                        result[field] = "yyyy-MM";
+                    }
+                    if (value === "date") {
+                        result[field] = "yyyy-MM-dd";
+                    }
+                    if (value === "datetime") {
+                        result[field] = "yyyy-MM-dd hh:mm:ss";
                     }
                 }
                 return result;
