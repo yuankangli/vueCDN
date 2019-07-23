@@ -7,7 +7,8 @@
 
 #### 安装教程
 
-1. 双击打开 static/views/demo.html 文件即可进行预览
+1. 双击打开 static/views/demo.html 文件即可进行预览   
+在线预览版: https://yuankangli.github.io/
 
 #### 使用说明
 
